@@ -1,0 +1,1 @@
+web: gunicorn ses_project.wsgi
