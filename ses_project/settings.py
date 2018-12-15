@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9nkkx#=(4y-j_ft*8#dog1l_ydwvzxaze%pf03tx2eq)jic%7e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -120,19 +120,14 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-# heroku用設定
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-ALLOWED_HOSTS = ['*']
-
-STATIC_ROOT = 'staticfiles'
-
+# heroku用設定 参考ページ -> https://qiita.com/okoppe8/items/76cdb202eb15aab566d1
 DEBUG = False
 
 try:
     from .local_settings import *
 except ImportError:
     pass
+
+if not DEBUG:
+    import django_heroku
+    django_heroku.settings(locals())

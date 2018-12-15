@@ -1,1 +1,1 @@
-web: gunicorn ses_project.wsgi
+web: gunicorn ses_project.wsgi --log-file -
