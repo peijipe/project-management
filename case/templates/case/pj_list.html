@@ -1,0 +1,109 @@
+{% extends 'case/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div>
+        <h1><a href="{% url 'case:pj_list' %}">案件一覧</a></h1>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      検索
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">検索</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+                <form action="#" method="get">
+                <div>
+                    <p>キーワード</p>
+                    <input type="text" id="keyword1" name="keyword1">
+                    <!--<button type="submit">検索</button>-->
+                </div>
+                <!--</form>-->
+                <!--<form action="#" method="get">-->
+                <div>
+                    <p>紹介元</p>
+                    <!--<input type="text" id="keyword2" name="keyword2">-->
+                    <select name="keyword2">
+                    <option value="">---</option>
+                    <option value="29">A株式会社</option>
+                    <option value="30">B株式会社</option>
+                    <option value="31">株式会社C</option>
+                    <option value="18">その他</option>
+                    </select></p>
+                    <!--<button type="submit">検索</button>-->
+                </div>
+                <!--</form>-->
+                <!--<form action="#" method="get">-->
+                  <div>
+                      <p>単金</p>
+                      <input type="number" id="keyword3" name="keyword3">
+                      <!--<button type="submit">検索</button>-->
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Search</button>
+                  </form>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!--<button type="submit" class="btn btn-primary">Search</button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">紹介日</th>
+          <th scope="col">案件名</th>
+          <th scope="col">期間</th>
+          <!--<th scope="col">必須スキル</th>-->
+          <th scope="col">単金</th>
+          <th scope="col">紹介元</th>
+        </tr>
+      </thead>
+
+    {% for project in projects %}
+      <tbody>
+        <tr>
+          <th scope="row"><a href="{% url 'case:pj_detail' pk=project.id %}">{{ project.id }}</a></th>
+          <td>{{ project.created_date|date:"Y/m/d" }}</td>
+          <td>{{ project.title }}</td>
+
+          {% if project.end_at == None %}
+          <td>{{ project.start_at|date:"Y/m/d" }}～</td>
+          {% else %}
+          <td>{{ project.start_at|date:"Y/m/d" }}～{{ project.end_at|date:"Y/m/d" }}</td>
+          {% endif %}
+
+          <!--<td>{{ project.first_skill }}</td>-->
+
+          {% if project.lower_cost == None %}
+          <td>～{{ project.upper_cost }}</td>
+          {% elif project.upper_cost == None %}
+          <td>{{ project.lower_cost }}～</td>
+          {% else %}
+          <td>{{ project.lower_cost }} ～ {{ project.upper_cost }}</td>
+          {% endif %}
+
+          <td>{{ project.company }}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+  </div>
+{% endblock %}
