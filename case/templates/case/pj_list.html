@@ -7,62 +7,63 @@
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-      検索
-    </button>
+    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
+      <!--検索-->
+    <!--</button>-->
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">検索</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div>
-                <form action="#" method="get">
-                <div>
-                    <p>キーワード</p>
-                    <input type="text" id="keyword1" name="keyword1">
-                    <!--<button type="submit">検索</button>-->
-                </div>
-                <!--</form>-->
+    <!--&lt;!&ndash; Modal &ndash;&gt;-->
+    <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+      <!--<div class="modal-dialog" role="document">-->
+        <!--<div class="modal-content">-->
+          <!--<div class="modal-header">-->
+            <!--<h5 class="modal-title" id="exampleModalLabel">検索</h5>-->
+            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+              <!--<span aria-hidden="true">&times;</span>-->
+            <!--</button>-->
+          <!--</div>-->
+          <!--<div class="modal-body">-->
+            <!--<div>-->
                 <!--<form action="#" method="get">-->
-                <div>
-                    <p>紹介元</p>
-                    <!--<input type="text" id="keyword2" name="keyword2">-->
-                    <select name="keyword2">
-                    <option value="">---</option>
-                    <option value="29">A株式会社</option>
-                    <option value="30">B株式会社</option>
-                    <option value="31">株式会社C</option>
-                    <option value="18">その他</option>
-                    </select></p>
-                    <!--<button type="submit">検索</button>-->
-                </div>
-                <!--</form>-->
-                <!--<form action="#" method="get">-->
-                  <div>
-                      <p>単金</p>
-                      <input type="number" id="keyword3" name="keyword3">
-                      <!--<button type="submit">検索</button>-->
-                  </div>
+                <!--<div>-->
+                    <!--<p>キーワード</p>-->
+                    <!--<input type="text" id="keyword1" name="keyword1">-->
+                    <!--&lt;!&ndash;<button type="submit">検索</button>&ndash;&gt;-->
+                <!--</div>-->
+                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+                <!--&lt;!&ndash;<form action="#" method="get">&ndash;&gt;-->
+                <!--<div>-->
+                    <!--<p>紹介元</p>-->
+                    <!--&lt;!&ndash;<input type="text" id="keyword2" name="keyword2">&ndash;&gt;-->
+                    <!--<select name="keyword2">-->
+                    <!--<option value="">-&#45;&#45;</option>-->
+                    <!--<option value="29">A株式会社</option>-->
+                    <!--<option value="30">B株式会社</option>-->
+                    <!--<option value="31">株式会社C</option>-->
+                    <!--<option value="18">その他</option>-->
+                    <!--</select></p>-->
+                    <!--&lt;!&ndash;<button type="submit">検索</button>&ndash;&gt;-->
+                <!--</div>-->
+                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+                <!--&lt;!&ndash;<form action="#" method="get">&ndash;&gt;-->
+                  <!--<div>-->
+                      <!--<p>単金</p>-->
+                      <!--<input type="number" id="keyword3" name="keyword3">-->
+                      <!--&lt;!&ndash;<button type="submit">検索</button>&ndash;&gt;-->
+                  <!--</div>-->
 
-                  <button type="submit" class="btn btn-primary">Search</button>
-                  </form>
-            </div>
+                  <!--<button type="submit" class="btn btn-primary">Search</button>-->
+                  <!--</form>-->
+            <!--</div>-->
 
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <!--<button type="submit" class="btn btn-primary">Search</button>-->
-          </div>
-        </div>
-      </div>
-    </div>
+          <!--</div>-->
+          <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+            <!--&lt;!&ndash;<button type="submit" class="btn btn-primary">Search</button>&ndash;&gt;-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
 
     <table class="table">
       <thead>
@@ -105,5 +106,42 @@
       </tbody>
     {% endfor %}
     </table>
+
+    <hr>
+    <div>
+        <form action="#" method="get">
+                キーワード：
+                <input type="text" id="keyword1" name="keyword1">
+                <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <hr>
+    <div>
+        <form action="#" method="get">
+        <h6>紹介元：</h6>
+        <select name="keyword2">
+        <option value="">---</option>
+        <option value="29">A株式会社</option>
+        <option value="30">B株式会社</option>
+        <option value="31">株式会社C</option>
+        <option value="18">その他</option>
+        </select>
+
+        <h6>単金：</h6>
+        <input type="number" id="keyword3" name="keyword3">
+
+        <h6>作業範囲：</h6>
+            <ul>
+                <li><input type="checkbox" name="keyword4" value=1>開発</li>
+                <li><input type="checkbox" name="keyword4" value=2>要件定義、設計</li>
+                <li><input type="checkbox" name="keyword4" value=3>調査、研究</li>
+                <li><input type="checkbox" name="keyword4" value=4>テスト、検証</li>
+                <li><input type="checkbox" name="keyword4" value=5>運用保守</li>
+            </ul>
+        <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+　   </div>
+
+
   </div>
 {% endblock %}
