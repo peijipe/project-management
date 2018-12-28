@@ -5,143 +5,83 @@
     <div>
         <h1><a href="{% url 'case:pj_list' %}">案件一覧</a></h1>
     </div>
+      <div class="row">
+        <div class="col-sm-10">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">紹介日</th>
+                  <th scope="col">案件名</th>
+                  <th scope="col">期間</th>
+                  <th scope="col">単金</th>
+                  <th scope="col">紹介元</th>
+                </tr>
+              </thead>
 
-    <!-- Button trigger modal -->
-    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
-      <!--検索-->
-    <!--</button>-->
+            {% for project in projects %}
+              <tbody>
+                <tr>
+                  <th scope="row"><a href="{% url 'case:pj_detail' pk=project.id %}">{{ project.id }}</a></th>
+                  <td>{{ project.created_date|date:"Y/m/d" }}</td>
+                  <td>{{ project.title }}</td>
 
-    <!--&lt;!&ndash; Modal &ndash;&gt;-->
-    <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-      <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-          <!--<div class="modal-header">-->
-            <!--<h5 class="modal-title" id="exampleModalLabel">検索</h5>-->
-            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-              <!--<span aria-hidden="true">&times;</span>-->
-            <!--</button>-->
-          <!--</div>-->
-          <!--<div class="modal-body">-->
-            <!--<div>-->
-                <!--<form action="#" method="get">-->
-                <!--<div>-->
-                    <!--<p>キーワード</p>-->
-                    <!--<input type="text" id="keyword1" name="keyword1">-->
-                    <!--&lt;!&ndash;<button type="submit">検索</button>&ndash;&gt;-->
-                <!--</div>-->
-                <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                <!--&lt;!&ndash;<form action="#" method="get">&ndash;&gt;-->
-                <!--<div>-->
-                    <!--<p>紹介元</p>-->
-                    <!--&lt;!&ndash;<input type="text" id="keyword2" name="keyword2">&ndash;&gt;-->
-                    <!--<select name="keyword2">-->
-                    <!--<option value="">-&#45;&#45;</option>-->
-                    <!--<option value="29">A株式会社</option>-->
-                    <!--<option value="30">B株式会社</option>-->
-                    <!--<option value="31">株式会社C</option>-->
-                    <!--<option value="18">その他</option>-->
-                    <!--</select></p>-->
-                    <!--&lt;!&ndash;<button type="submit">検索</button>&ndash;&gt;-->
-                <!--</div>-->
-                <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                <!--&lt;!&ndash;<form action="#" method="get">&ndash;&gt;-->
-                  <!--<div>-->
-                      <!--<p>単金</p>-->
-                      <!--<input type="number" id="keyword3" name="keyword3">-->
-                      <!--&lt;!&ndash;<button type="submit">検索</button>&ndash;&gt;-->
-                  <!--</div>-->
+                  {% if project.end_at == None %}
+                  <td>{{ project.start_at|date:"Y/m/d" }}～</td>
+                  {% else %}
+                  <td>{{ project.start_at|date:"Y/m/d" }}～{{ project.end_at|date:"Y/m/d" }}</td>
+                  {% endif %}
 
-                  <!--<button type="submit" class="btn btn-primary">Search</button>-->
-                  <!--</form>-->
-            <!--</div>-->
+                  {% if project.lower_cost == None %}
+                  <td>～{{ project.upper_cost }}</td>
+                  {% elif project.upper_cost == None %}
+                  <td>{{ project.lower_cost }}～</td>
+                  {% else %}
+                  <td>{{ project.lower_cost }} ～ {{ project.upper_cost }}</td>
+                  {% endif %}
 
-          <!--</div>-->
-          <!--<div class="modal-footer">-->
-            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-            <!--&lt;!&ndash;<button type="submit" class="btn btn-primary">Search</button>&ndash;&gt;-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+                  <td>{{ project.company }}</td>
+                </tr>
+              </tbody>
+            {% endfor %}
+            </table>
+        </div>
+        <div class="col-sm-2">
+            <div>
+                <form action="#" method="get">
+                  <div class="form-group">
+                    <label for="formGroupExampleInput">キーワード検索</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" name="keyword" placeholder="Example input">
+                  </div>
+                <button type="submit" class="btn btn-outline-primary">Search</button>
+                <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                </form>
 
+            </div>
+            <hr>
+            <div>
+                <p>項目検索</p>
+                <form action="#" method="get">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">単金：</label>
+                        <input type="number" class="form-control" id="formGroupExampleInput" name="cost">
+                    </div>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">紹介日</th>
-          <th scope="col">案件名</th>
-          <th scope="col">期間</th>
-          <!--<th scope="col">必須スキル</th>-->
-          <th scope="col">単金</th>
-          <th scope="col">紹介元</th>
-        </tr>
-      </thead>
-
-    {% for project in projects %}
-      <tbody>
-        <tr>
-          <th scope="row"><a href="{% url 'case:pj_detail' pk=project.id %}">{{ project.id }}</a></th>
-          <td>{{ project.created_date|date:"Y/m/d" }}</td>
-          <td>{{ project.title }}</td>
-
-          {% if project.end_at == None %}
-          <td>{{ project.start_at|date:"Y/m/d" }}～</td>
-          {% else %}
-          <td>{{ project.start_at|date:"Y/m/d" }}～{{ project.end_at|date:"Y/m/d" }}</td>
-          {% endif %}
-
-          <!--<td>{{ project.first_skill }}</td>-->
-
-          {% if project.lower_cost == None %}
-          <td>～{{ project.upper_cost }}</td>
-          {% elif project.upper_cost == None %}
-          <td>{{ project.lower_cost }}～</td>
-          {% else %}
-          <td>{{ project.lower_cost }} ～ {{ project.upper_cost }}</td>
-          {% endif %}
-
-          <td>{{ project.company }}</td>
-        </tr>
-      </tbody>
-    {% endfor %}
-    </table>
-
-    <hr>
-    <div>
-        <form action="#" method="get">
-                キーワード：
-                <input type="text" id="keyword1" name="keyword1">
-                <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-    </div>
-    <hr>
-    <div>
-        <form action="#" method="get">
-        <h6>紹介元：</h6>
-        <select name="keyword2">
-        <option value="">---</option>
-        <option value="29">A株式会社</option>
-        <option value="30">B株式会社</option>
-        <option value="31">株式会社C</option>
-        <option value="18">その他</option>
-        </select>
-
-        <h6>単金：</h6>
-        <input type="number" id="keyword3" name="keyword3">
-
-        <h6>作業範囲：</h6>
-            <ul>
-                <li><input type="checkbox" name="keyword4" value=1>開発</li>
-                <li><input type="checkbox" name="keyword4" value=2>要件定義、設計</li>
-                <li><input type="checkbox" name="keyword4" value=3>調査、研究</li>
-                <li><input type="checkbox" name="keyword4" value=4>テスト、検証</li>
-                <li><input type="checkbox" name="keyword4" value=5>運用保守</li>
-            </ul>
-        <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-　   </div>
-
-
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">作業範囲：</label>
+                        <select multiple class="form-control" id="exampleFormControlSelect2" name="category">
+                            <option value=1>開発</option>
+                            <option value=2>要件定義、設計</option>
+                            <option value=3>調査、研究</option>
+                            <option value=4>テスト、検証</option>
+                            <option value=5>運用保守</option>
+                        </select>
+                    </div>
+                <button type="submit" class="btn btn-outline-primary">Search</button>
+                <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                </form>
+        　   </div>
+        </div>
+      </div>
   </div>
 {% endblock %}
