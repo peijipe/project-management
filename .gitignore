@@ -2,5 +2,7 @@ __pycache__
 staticfiles
 local_settings.py
 db.sqlite3
+sqlite3.exe
 *.py[co]
 .idea
+tests.py

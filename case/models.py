@@ -96,7 +96,9 @@ class Case(models.Model):
     )
     category = models.ForeignKey(
         Category,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     number = models.IntegerField(
         verbose_name='組合案件番号',
@@ -174,7 +176,9 @@ class Case(models.Model):
     )
     company = models.ForeignKey(
         Company,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     status = models.ForeignKey(
         Status,
