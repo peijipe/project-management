@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Case, Company
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def pj_list(request):
     keyword = request.GET.get("keyword")
     if keyword:
@@ -57,6 +59,7 @@ def pj_list(request):
     return render(request, 'case/pj_list.html', {'projects': projects})
 
 
+@login_required
 def pj_detail(request, pk):
     project = get_object_or_404(Case, pk=pk)
     return render(request, 'case/pj_detail.html', {'project': project})
