@@ -28,43 +28,43 @@ class Category(models.Model):
         return self.name
 
 
-class Nationality(models.Model):
-    restriction = models.CharField(
-        verbose_name='国籍制限',
-        blank=False,
-        null=False,
-        max_length=20,
-        default='',
-    )
-
-    def __str__(self):
-        return self.restriction
-
-
-class Status(models.Model):
-    status = models.CharField(
-        verbose_name='ステータス',
-        blank=True,
-        null=True,
-        max_length=20,
-        default='',
-    )
-
-    def __str__(self):
-        return self.status
-
-
-class LowSkill(models.Model):
-    low_flag = models.CharField(
-        verbose_name='ロースキル案件',
-        blank=True,
-        null=True,
-        max_length=20,
-        default='',
-    )
-
-    def __str__(self):
-        return self.low_flag
+# class Nationality(models.Model):
+#     restriction = models.CharField(
+#         verbose_name='国籍制限',
+#         blank=False,
+#         null=False,
+#         max_length=20,
+#         default='',
+#     )
+#
+#     def __str__(self):
+#         return self.restriction
+#
+#
+# class Status(models.Model):
+#     status = models.CharField(
+#         verbose_name='ステータス',
+#         blank=True,
+#         null=True,
+#         max_length=20,
+#         default='',
+#     )
+#
+#     def __str__(self):
+#         return self.status
+#
+#
+# class LowSkill(models.Model):
+#     low_flag = models.CharField(
+#         verbose_name='ロースキル案件',
+#         blank=True,
+#         null=True,
+#         max_length=20,
+#         default='',
+#     )
+#
+#     def __str__(self):
+#         return self.low_flag
 
 
 class Case(models.Model):
@@ -104,7 +104,7 @@ class Case(models.Model):
         verbose_name='組合案件番号',
         blank=True,
         null=True,
-        default='',
+        default='0000',
         validators=[MinValueValidator(0)],
     )
     start_at = models.DateField(
@@ -130,7 +130,7 @@ class Case(models.Model):
         verbose_name='人数',
         blank=True,
         null=True,
-        default='',
+        default='0',
         validators=[MinValueValidator(0)],
     )
     first_skill = models.TextField(
@@ -158,7 +158,7 @@ class Case(models.Model):
         verbose_name='下限単金',
         blank=True,
         null=True,
-        default='',
+        default='0',
         validators=[MinValueValidator(0)],
     )
     upper_cost = models.IntegerField(
@@ -168,30 +168,30 @@ class Case(models.Model):
         default='9999',  # スキル見合いは9999で定義する
         validators=[MinValueValidator(0)],
     )
-    nationality = models.ForeignKey(
-        Nationality,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
+    # nationality = models.ForeignKey(
+    #     Nationality,
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     null=True,
+    # )
     company = models.ForeignKey(
         Company,
         on_delete=models.CASCADE,
         blank=True,
         null=True,
     )
-    status = models.ForeignKey(
-        Status,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
-    low_skill = models.ForeignKey(
-        LowSkill,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
+    # status = models.ForeignKey(
+    #     Status,
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     null=True,
+    # )
+    # low_skill = models.ForeignKey(
+    #     LowSkill,
+    #     on_delete=models.CASCADE,
+    #     blank=True,
+    #     null=True,
+    # )
     comment = models.TextField(
         verbose_name='備考',
         blank=True,

@@ -1,8 +1,14 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Case, Company
+from .models import Case
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
+import csv
+import io
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views import generic
+from .forms import CSVUploadForm
 
 @login_required
 def pj_list(request):
@@ -63,3 +69,47 @@ def pj_list(request):
 def pj_detail(request, pk):
     project = get_object_or_404(Case, pk=pk)
     return render(request, 'case/pj_detail.html', {'project': project})
+
+
+class CaseImport(generic.FormView):
+    template_name = 'case/import.html'
+    success_url = reverse_lazy('case:pj_list')
+    form_class = CSVUploadForm
+
+    def form_valid(self, form):
+        csvfile = io.TextIOWrapper(form.cleaned_data['file'], encoding='utf-8')
+        reader = csv.reader(csvfile)
+
+        for row in reader:
+            case, created = Case.objects.get_or_create(pk=row[0])
+            case.title = row[1]
+            case.text = row[2]
+            case.created_date = row[3]
+            case.updated_date = row[4]
+            case.category.name = row[5]
+            case.number = row[6]
+            case.start_at = row[7]
+            case.end_at = row[8]
+            case.place = row[9]
+            case.member = row[10]
+            case.first_skill = row[11]
+            case.second_skill = row[12]
+            case.personal_skill = row[13]
+            case.lower_cost = row[14]
+            case.upper_cost = row[15]
+            case.company.name = row[16]
+            case.comment = row[17]
+            case.save()
+        return super().form_valid(form)
+
+
+def case_export(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="cases.csv"'
+    writer = csv.writer(response)
+    for case in Case.objects.all():
+        writer.writerow([case.pk, case.title,case.text, case.created_date, case.updated_date, case.category,
+                         case.number, case.start_at, case.end_at, case.place, case.member, case.first_skill,
+                         case.second_skill, case.personal_skill, case.lower_cost, case.upper_cost,
+                         case.company, case.comment])
+    return response
