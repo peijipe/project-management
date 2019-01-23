@@ -1,9 +1,8 @@
 {% extends 'case/base.html' %}
 
 {% block content %}
-  <div class="container">
     <div>
-        <h1>案件詳細</h1>
+      <h1>案件詳細</h1>
     </div>
 
     <table class="table">
@@ -66,6 +65,4 @@
         </tr>
       </tbody>
     </table>
-    <a class="btn btn-success" href="{% url 'case:pj_list' %}" role="button">一覧へ</a>
-  </div>
 {% endblock %}
