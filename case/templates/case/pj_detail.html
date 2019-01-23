@@ -1,68 +1,70 @@
 {% extends 'case/base.html' %}
 
 {% block content %}
-    <div>
-      <h1>案件詳細</h1>
-    </div>
+<div class="container">
+  <div>
+    <h1>案件詳細</h1>
+  </div>
 
-    <table class="table">
-      <tbody>
-        <tr>
-          <th>紹介日</th>
-          <td>{{ project.created_date|date:"Y/m/d" }}</td>
-        </tr>
-        <tr>
-          <th>案件名</th>
-          <td>{{ project.title }}</td>
-        </tr>
-        <tr>
-          <th>概要</th>
-          <td>{{ project.text }}</td>
-        </tr>
-        <tr>
-          <th>カテゴリー</th>
-          <td>{{ project.category }}</td>
-        </tr>
-        <tr>
-          <th>案件番号</th>
-          <td>{{ project.number }}</td>
-        </tr>
-        <tr>
-          <th>期間</th>
-            {% if project.end_at == None %}
-            <td>{{ project.start_at|date:"Y/m/d" }}～</td>
-            {% else %}
-            <td>{{ project.start_at|date:"Y/m/d" }}～{{ project.end_at|date:"Y/m/d" }}</td>
-            {% endif %}
-        </tr>
-        <tr>
-          <th>人数</th>
-          <td>{{ project.member }}</td>
-        </tr>
-        <tr>
-          <th>必須スキル</th>
-          <td>{{ project.first_skill }}</td>
-        </tr>
-        <tr>
-          <th>尚可スキル</th>
-          <td>{{ project.second_skill }}</td>
-        </tr>
-        <tr>
-          <th>求める人物像</th>
-          <td>{{ project.personal_skill }}</td>
-        </tr>
-        <tr>
-          <th>単金</th>
-          <td>{{ project.lower_cost }} ～ {{ project.upper_cost }}</td>
-        </tr>
-        <tr>
-          <th>紹介元</th>
-          <td>{{ project.company }}</td>
-        </tr>
-        <tr>
-          <th>備考</th>
-          <td>{{ project.comment }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>紹介日</th>
+        <td>{{ project.created_date|date:"Y/m/d" }}</td>
+      </tr>
+      <tr>
+        <th>案件名</th>
+        <td>{{ project.title }}</td>
+      </tr>
+      <tr>
+        <th>概要</th>
+        <td>{{ project.text }}</td>
+      </tr>
+      <tr>
+        <th>カテゴリー</th>
+        <td>{{ project.category }}</td>
+      </tr>
+      <tr>
+        <th>案件番号</th>
+        <td>{{ project.number }}</td>
+      </tr>
+      <tr>
+        <th>期間</th>
+          {% if project.end_at == None %}
+          <td>{{ project.start_at|date:"Y/m/d" }}～</td>
+          {% else %}
+          <td>{{ project.start_at|date:"Y/m/d" }}～{{ project.end_at|date:"Y/m/d" }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+        <th>人数</th>
+        <td>{{ project.member }}</td>
+      </tr>
+      <tr>
+        <th>必須スキル</th>
+        <td>{{ project.first_skill }}</td>
+      </tr>
+      <tr>
+        <th>尚可スキル</th>
+        <td>{{ project.second_skill }}</td>
+      </tr>
+      <tr>
+        <th>求める人物像</th>
+        <td>{{ project.personal_skill }}</td>
+      </tr>
+      <tr>
+        <th>単金</th>
+        <td>{{ project.lower_cost }} ～ {{ project.upper_cost }}</td>
+      </tr>
+      <tr>
+        <th>紹介元</th>
+        <td>{{ project.company }}</td>
+      </tr>
+      <tr>
+        <th>備考</th>
+        <td>{{ project.comment }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 {% endblock %}
