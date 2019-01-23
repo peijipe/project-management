@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Case
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 import csv
 import io
@@ -9,6 +10,18 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic
 from .forms import CSVUploadForm
+
+
+def paginator_queryset(request, queryset, count):
+    paginator = Paginator(queryset, count)
+    page = request.GET.get('page')
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    return page_obj
 
 @login_required
 def pj_list(request):
@@ -62,7 +75,12 @@ def pj_list(request):
         return render(request, 'case/pj_list.html', {'projects': projects})
 
     projects = Case.objects.all().order_by('created_date')
-    return render(request, 'case/pj_list.html', {'projects': projects})
+    page_obj = paginator_queryset(request, projects, 4)
+    context = {
+        'projects': page_obj.object_list,
+        'page_obj': page_obj,
+    }
+    return render(request, 'case/pj_list.html', context)
 
 
 @login_required
